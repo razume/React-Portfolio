@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Header({ user }) {
   const changeUser = () => {
-    console.log(user);
+    window.localStorage.removeItem('userId');
   };
   return (
     <div className="header-container">
