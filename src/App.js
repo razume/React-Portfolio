@@ -24,6 +24,12 @@ const fetchUser = async () => {
 function App() {
   const [user, setUser] = useState({});
 
+  const deleteUser = user => {
+    return axios.delete(`${API}/users/detail/${user.id}`).then(user => {
+      setUser();
+    });
+  };
+
   useEffect(() => {
     fetchUser().then(user => {
       setUser(user);
