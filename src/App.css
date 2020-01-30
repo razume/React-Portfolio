@@ -6,7 +6,8 @@
   height: 15vh;
 }
 
-.header-container > img {
+.header-container > a,
+img {
   border-radius: 50%;
   width: 10vh;
   height: 10vh;

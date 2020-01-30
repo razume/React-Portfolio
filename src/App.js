@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import qs from 'qs';
 import Header from './components/Header';
+import Home from './components/Home';
+import Notes from './components/Notes';
+import Vacations from './components/Vacations';
+import FollowingCompanies from './components/FollowingCompanies';
+import { getHash } from './utils/Utils';
 import './App.css';
 
 const API = 'https://acme-users-api-rev.herokuapp.com/api';
@@ -23,17 +29,83 @@ const fetchUser = async () => {
 
 function App() {
   const [user, setUser] = useState({});
+  const [notes, setNotes] = useState([]);
+  const [vacations, setVacations] = useState([]);
+  const [followingCompanies, setFollowingCompanies] = useState([]);
 
+  const [params, setParams] = useState(qs.parse(getHash()));
+
+  useEffect(() => {
+    window.addEventListener('hashchange', () => {
+      setParams(qs.parse(getHash()));
+    });
+    setParams(qs.parse(getHash()));
+  }, []);
+
+  console.log(notes);
   useEffect(() => {
     fetchUser().then(user => {
       setUser(user);
     });
-  }, []);
-  console.log(user);
+  }, [user.id]);
 
+  useEffect(() => {
+    fetchNotes();
+  }, [user]);
+
+  const fetchNotes = () => {
+    if (!user.id) {
+      return;
+    }
+    axios
+      .get(`${API}/users/${user.id}/notes`)
+      .then(response => setNotes(response.data));
+  };
+
+  useEffect(() => {
+    if (!user.id) {
+      return;
+    }
+    axios
+      .get(`${API}/users/${user.id}/vacations`)
+      .then(response => setVacations(response.data));
+  }, [user]);
+
+  useEffect(() => {
+    if (!user.id) {
+      return;
+    }
+    axios
+      .get(`${API}/users/${user.id}/followingCompanies`)
+      .then(response => setFollowingCompanies(response.data));
+  }, [user]);
+
+  const changeUser = async () => {
+    window.localStorage.removeItem('userId');
+    await fetchUser().then(user => {
+      setUser(user);
+    });
+  };
+
+  if (!user.id) {
+    return '...loading';
+  }
   return (
     <div>
-      <Header user={user} />
+      <Header user={user} changeUser={changeUser} params={params} />
+      {params.view === 'notes' && <Notes notes={notes} />}
+      {params.view === 'vacations' && <Vacations vacations={vacations} />}
+      {params.view === 'followingCompanies' && (
+        <FollowingCompanies followingCompanies={followingCompanies} />
+      )}
+      {params.view === 'home' && (
+        <Home
+          notes={notes}
+          vacations={vacations}
+          followingCompanies={followingCompanies}
+          params={params}
+        />
+      )}
     </div>
   );
 }
