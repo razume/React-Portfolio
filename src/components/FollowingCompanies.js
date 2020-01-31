@@ -8,6 +8,7 @@ export default function FollowingCompanies({
   params,
 }) {
   //const RenderFollowingCompanies = () => {
+  console.log('FollowingCompanies: ', followingCompanies);
   return (
     <ul>
       {fcNames.map(followingCompany => {

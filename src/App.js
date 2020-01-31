@@ -8,6 +8,7 @@ import Vacations from './components/Vacations';
 import FollowingCompanies from './components/FollowingCompanies';
 import { getHash } from './utils/Utils';
 import './App.css';
+import CreateVacation from './components/CreateVacation';
 
 const API = 'https://acme-users-api-rev.herokuapp.com/api';
 
@@ -43,15 +44,12 @@ function App() {
     setParams(qs.parse(getHash()));
   }, []);
 
+  console.log('notes', notes);
   useEffect(() => {
     fetchUser().then(user => {
       setUser(user);
     });
   }, [user.id]);
-
-  useEffect(() => {
-    fetchNotes();
-  }, [user]);
 
   const fetchNotes = () => {
     if (!user.id) {
@@ -61,6 +59,10 @@ function App() {
       .get(`${API}/users/${user.id}/notes`)
       .then(response => setNotes(response.data));
   };
+
+  useEffect(() => {
+    fetchNotes();
+  }, [user]);
 
   useEffect(() => {
     if (!user.id) {
@@ -123,6 +125,23 @@ function App() {
 
   console.log(fcNames);
 
+  const createVacation = vacation => {
+    return axios
+      .post(`${API}/users/${user.id}/vacations`, vacation)
+      .then(response => setVacations([...vacations, response.data]));
+  };
+
+  const removeVacation = async vacationToRemove => {
+    await axios.delete(
+      `${API}/users/${user.id}/vacations/${vacationToRemove.id}`
+    );
+    setVacations(
+      vacations.filter(vacation => {
+        return vacation.id !== vacationToRemove.id;
+      })
+    );
+  };
+
   if (!user.id) {
     return '...loading';
   }
@@ -130,7 +149,12 @@ function App() {
     <div>
       <Header user={user} changeUser={changeUser} params={params} />
       {params.view === 'notes' && <Notes notes={notes} />}
-      {params.view === 'vacations' && <Vacations vacations={vacations} />}
+      {params.view === 'vacations' && (
+        <div>
+          <CreateVacation createVacation={createVacation} />
+          <Vacations vacations={vacations} removeVacation={removeVacation} />
+        </div>
+      )}
       {params.view === 'followingCompanies' && (
         <FollowingCompanies
           followingCompanies={followingCompanies}
