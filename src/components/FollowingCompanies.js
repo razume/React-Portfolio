@@ -1,5 +1,4 @@
 import React from 'react';
-//import qs from 'qs';
 
 export default function FollowingCompanies({
   destroyFollowingCompany,
@@ -7,8 +6,8 @@ export default function FollowingCompanies({
   fcNames,
   params,
 }) {
-  //const RenderFollowingCompanies = () => {
-  console.log('FollowingCompanies: ', followingCompanies);
+  //console.log('FollowingCompanies: ', followingCompanies);
+
   return (
     <ul>
       {fcNames.map(followingCompany => {
@@ -24,19 +23,3 @@ export default function FollowingCompanies({
     </ul>
   );
 }
-
-//   return (
-//     <div>
-//       <h4>
-//         <a
-//           href={`#${qs.stringify({ view: 'followingCompanies' })}`}
-//           className={params.view === 'followingCompanies' ? 'selected' : ''}
-//         >
-//           Following Companies
-//         </a>
-//       </h4>
-//       <p>You are following {followingCompanies.length} companies</p>
-//       {params.view === 'followingCompanies' && <RenderFollowingCompanies />}
-//     </div>
-//   );
-// }

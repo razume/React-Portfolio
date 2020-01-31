@@ -1,6 +1,5 @@
 import React from 'react';
 import qs from 'qs';
-//import Notes from './Notes';
 
 export default function Home({ notes, vacations, followingCompanies, params }) {
   return (

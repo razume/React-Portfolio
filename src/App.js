@@ -44,7 +44,7 @@ function App() {
     setParams(qs.parse(getHash()));
   }, []);
 
-  console.log('notes', notes);
+  //console.log('notes', notes);
   useEffect(() => {
     fetchUser().then(user => {
       setUser(user);
@@ -93,8 +93,6 @@ function App() {
     axios.get(`${API}/companies`).then(response => setCompanies(response.data));
   }, []);
 
-  //const findFollowingCompanyName = () => {
-
   useEffect(() => {
     let companyNames = [];
     for (let followingCompany of followingCompanies) {
@@ -123,7 +121,7 @@ function App() {
     );
   };
 
-  console.log(fcNames);
+  //console.log(fcNames);
 
   const createVacation = vacation => {
     return axios
