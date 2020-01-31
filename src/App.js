@@ -33,7 +33,8 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [vacations, setVacations] = useState([]);
   const [followingCompanies, setFollowingCompanies] = useState([]);
-
+  const [companies, setCompanies] = useState([]);
+  const [fcNames, setFcNames] = useState([]);
   const [params, setParams] = useState(qs.parse(getHash()));
 
   useEffect(() => {
@@ -43,7 +44,7 @@ function App() {
     setParams(qs.parse(getHash()));
   }, []);
 
-  console.log('notes', notes);
+  //console.log('notes', notes);
   useEffect(() => {
     fetchUser().then(user => {
       setUser(user);
@@ -88,6 +89,40 @@ function App() {
     });
   };
 
+  useEffect(() => {
+    axios.get(`${API}/companies`).then(response => setCompanies(response.data));
+  }, []);
+
+  useEffect(() => {
+    let companyNames = [];
+    for (let followingCompany of followingCompanies) {
+      for (let company of companies) {
+        if (company.id === followingCompany.companyId) {
+          companyNames.push({
+            name: company.name,
+            rating: followingCompany.rating,
+            id: followingCompany.id,
+          });
+        }
+      }
+    }
+
+    setFcNames(companyNames);
+  }, [companies, followingCompanies]);
+
+  const destroyFollowingCompany = async companyToDestroy => {
+    await axios.delete(
+      `${API}/users/${user.id}/followingCompanies/${companyToDestroy.id}`
+    );
+    setFollowingCompanies(
+      followingCompanies.filter(
+        followingCompany => followingCompany.id !== companyToDestroy.id
+      )
+    );
+  };
+
+  //console.log(fcNames);
+
   const createVacation = vacation => {
     return axios
       .post(`${API}/users/${user.id}/vacations`, vacation)
@@ -119,7 +154,11 @@ function App() {
         </div>
       )}
       {params.view === 'followingCompanies' && (
-        <FollowingCompanies followingCompanies={followingCompanies} />
+        <FollowingCompanies
+          followingCompanies={followingCompanies}
+          fcNames={fcNames}
+          destroyFollowingCompany={destroyFollowingCompany}
+        />
       )}
       {params.view === 'home' && (
         <Home

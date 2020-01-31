@@ -1,10 +1,9 @@
 import React from 'react';
 import moment from 'moment';
-//import qs from 'qs';
 
 export default function Vacations({ vacations, removeVacation, params }) {
-  console.log('vacations:', vacations);
-  // const RenderVacations = () => {
+  //console.log('vacations:', vacations);
+
   return (
     <ul>
       {vacations.map(vacation => {
@@ -38,19 +37,3 @@ export default function Vacations({ vacations, removeVacation, params }) {
     </ul>
   );
 }
-
-//   return (
-//     <div>
-//       <h4>
-//         <a
-//           href={`#${qs.stringify({ view: 'vacations' })}`}
-//           className={params.view === 'vacations' ? 'selected' : ''}
-//         >
-//           Vacations
-//         </a>
-//       </h4>
-//       <p>You have {vacations.length} vacations</p>
-//       {params.view === 'vacations' && <RenderVacations />}
-//     </div>
-//   );
-// }
