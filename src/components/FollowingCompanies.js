@@ -1,14 +1,22 @@
 import React from 'react';
 //import qs from 'qs';
 
-export default function FollowingCompanies({ followingCompanies, params }) {
+export default function FollowingCompanies({
+  destroyFollowingCompany,
+  followingCompanies,
+  fcNames,
+  params,
+}) {
   //const RenderFollowingCompanies = () => {
   return (
     <ul>
-      {followingCompanies.map(followingCompany => {
+      {fcNames.map(followingCompany => {
         return (
           <li key={followingCompany.id}>
-            {followingCompany.rating} and {followingCompany.companyId}
+            {followingCompany.rating} and {followingCompany.name}
+            <button onClick={() => destroyFollowingCompany(followingCompany)}>
+              Unfollow
+            </button>
           </li>
         );
       })}
