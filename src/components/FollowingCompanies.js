@@ -3,6 +3,7 @@ import React from 'react';
 
 export default function FollowingCompanies({ followingCompanies, params }) {
   //const RenderFollowingCompanies = () => {
+  console.log('FollowingCompanies: ', followingCompanies);
   return (
     <ul>
       {followingCompanies.map(followingCompany => {
