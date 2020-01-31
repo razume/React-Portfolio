@@ -4,6 +4,7 @@ import React from 'react';
 
 export default function Notes({ notes, params }) {
   // const RenderNotes = () => {
+
   return (
     <ul>
       {notes.map(note => {
