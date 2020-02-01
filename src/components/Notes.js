@@ -2,9 +2,14 @@ import React from 'react';
 
 export default function Notes({ notes, params }) {
   return (
-    <ul>
+    <ul className="notes-list">
+      <h4 className="title">Notes</h4>
       {notes.map(note => {
-        return <li key={note.id}>{note.text}</li>;
+        return (
+          <li className="note" key={note.id}>
+            {note.text}
+          </li>
+        );
       })}
     </ul>
   );
