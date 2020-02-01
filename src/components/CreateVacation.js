@@ -27,25 +27,21 @@ const CreateVacation = ({ createVacation }) => {
   };
 
   return (
-    <form className="input-container" onSubmit={onSubmit}>
+    <div>
+      <h4 className="title">Vacations</h4>
       <span className="error">
         {error}
         <br />
       </span>
-      <label>
-        Start Date{' '}
+      <form className="input-container" onSubmit={onSubmit}>
         <input
           value={startDate}
           onChange={ev => setStartDate(ev.target.value)}
         />
-      </label>
-      <label>
-        {' '}
-        End Date{' '}
         <input value={endDate} onChange={ev => setEndDate(ev.target.value)} />
-      </label>
-      <button>Create</button>
-    </form>
+        <button>Create</button>
+      </form>
+    </div>
   );
 };
 
