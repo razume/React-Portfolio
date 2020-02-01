@@ -5,10 +5,10 @@ export default function Vacations({ vacations, removeVacation, params }) {
   //console.log('vacations:', vacations);
 
   return (
-    <ul>
+    <ul className="vacation-list">
       {vacations.map(vacation => {
         return (
-          <li key={vacation.id}>
+          <li key={vacation.id} className="vacation">
             <p>
               Start Date:{' '}
               {moment(vacation.startDate).format('dddd, MM/DD/YYYY')}
@@ -31,6 +31,7 @@ export default function Vacations({ vacations, removeVacation, params }) {
             >
               Remove
             </button>
+            <hr />
           </li>
         );
       })}

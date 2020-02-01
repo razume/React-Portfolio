@@ -1,9 +1,24 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: white;
+}
+
+body {
+  background-color: bisque;
+}
+
 .header-container {
   display: flex;
   flex-direction: row;
   background-color: rgb(17, 109, 101);
   color: white;
   height: 15vh;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .header-container > a,
@@ -12,4 +27,77 @@ img {
   width: 10vh;
   height: 10vh;
   margin: 0.5vh;
+}
+
+.header-container > button {
+  height: 2rem;
+}
+
+.home-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.home-container > .circle {
+  display: inherit;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(17, 109, 101);
+  color: white;
+  border-radius: 50%;
+  height: 20rem;
+  width: 20rem;
+}
+
+.home-container > .circle > h4 {
+  font-size: 16pt;
+  width: 8rem;
+  text-align: center;
+}
+
+.home-container > .circle > p {
+  width: 8rem;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.title {
+  margin: 3rem;
+  font-size: 17pt;
+}
+
+.notes-list {
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.notes-list > .note {
+  font-weight: bold;
+}
+
+.vacation-list > .vacation {
+  margin: 2rem;
+  list-style-type: none;
+}
+
+.input-container {
+  border: 1px solid black;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  justify-content: center;
+  padding: 10px;
+}
+
+.input-container > * {
+  margin: 8px;
+  height: 2rem;
+}
+
+span {
+  margin-left: 2rem;
+  color: red;
 }
