@@ -121,6 +121,15 @@ function App() {
     );
   };
 
+  const followCompany = async () => {
+    // const randomCompanyId = await axios
+    //   .get(`${API}/companies/random`)
+    //   .then(response => response.data.id);
+    const response = await axios.post(
+      `${API}/users/${user.id}/followingCompanies`
+    );
+  };
+  //followCompany();
   //console.log(fcNames);
 
   const createVacation = vacation => {
